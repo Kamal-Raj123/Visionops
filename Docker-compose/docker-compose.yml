@@ -18,7 +18,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - /visionops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus 
     networks:
       - visionops
