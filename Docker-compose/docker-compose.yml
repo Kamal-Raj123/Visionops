@@ -1,5 +1,3 @@
-version: "3.3"
-
 services:
   grafana:
     image: grafana/grafana:latest
@@ -20,7 +18,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - /visionops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus 
     networks:
       - visionops
@@ -32,7 +30,7 @@ services:
     container_name: alertmanager
     restart: unless-stopped
     volumes:
-      - /visionops/prometheus/prometheus-alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - ../prometheus-alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - alertmanager-data:/data  
     networks:
       - visionops
@@ -69,7 +67,7 @@ services:
     volumes:
       - /var/log:/var/log
       - /var/run/docker.sock:/var/run/docker.sock
-      - /visionops/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+      - ../promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
     networks:
       - visionops
     command: -config.file=/etc/promtail/promtail-config.yml
