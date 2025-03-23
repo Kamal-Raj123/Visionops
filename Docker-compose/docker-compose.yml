@@ -20,7 +20,7 @@ services:
     container_name: prometheus
     restart: unless-stopped
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /visionops/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus 
     networks:
       - visionops
@@ -32,7 +32,7 @@ services:
     container_name: alertmanager
     restart: unless-stopped
     volumes:
-      - ./prometheus-alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - /visionops/prometheus/prometheus-alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       - alertmanager-data:/data  
     networks:
       - visionops
@@ -69,7 +69,7 @@ services:
     volumes:
       - /var/log:/var/log
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+      - /visionops/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
     networks:
       - visionops
     command: -config.file=/etc/promtail/promtail-config.yml
