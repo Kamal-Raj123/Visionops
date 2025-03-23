@@ -1,0 +1,26 @@
+server:
+  http_listen_port: 9080  # Port for Promtail web UI
+
+positions:
+  filename: /var/lib/promtail/positions.yaml  # Stores last read positions
+
+clients:
+  - url: "http://loki:3100/loki/api/v1/push"  # Send logs to Loki service
+
+scrape_configs:
+  - job_name: system-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: varlogs
+          host: my-server
+          __path__: /var/log/*.log  # Wildcard to match multiple log files
+
+  - job_name: docker-logs
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+    relabel_configs:
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(.*)"
+        target_label: "container"
