@@ -24,21 +24,6 @@ services:
     ports:
       - "9090:9090"
 
-  alertmanager:
-    image: prom/alertmanager:latest
-    container_name: alertmanager
-    restart: unless-stopped
-    volumes:
-      - /Visionops/prometheus/prometheus-alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
-      - alertmanager-data:/data  
-    networks:
-      - visionops
-    ports:
-      - "9093:9093"
-    command:
-      - --config.file=/etc/alertmanager/alertmanager.yml
-      - --storage.path=/data
-
   blackbox:
     image: prom/blackbox-exporter:latest
     container_name: blackbox
